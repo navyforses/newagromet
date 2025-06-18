@@ -1,24 +1,377 @@
 <!DOCTYPE html>
-<html lang="ka">
+<html lang="ka" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>აგრო-ორნამენტი - სათბურის ინტელექტუალური პლატფორმა</title>
-    
-    <!-- Google Fonts -->
+    <title>Agro-Ornamenti SPA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- CSS ფაილი -->
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --primary: #4caf50;
+            --secondary: #8bc34a;
+            --bg: #fff;
+            --text: #333;
+            --shadow: 0 2px 5px rgba(0,0,0,0.1);
+            --gradient: linear-gradient(45deg, var(--primary), var(--secondary));
+            --transition-fast: all 0.3s ease;
+        }
+        [data-theme="dark"] {
+            --bg: #222;
+            --text: #f1f1f1;
+            --shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin:0;
+            font-family: 'Noto Sans Georgian', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: var(--transition-fast);
+        }
+        header { box-shadow: var(--shadow); }
+        .nav-main {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0.5rem 1rem;
+            background:var(--gradient);
+            color:#fff;
+        }
+        .nav-main .logo { font-weight:700; animation:spin 5s linear infinite; }
+        .nav-main ul { list-style:none; display:flex; margin:0; padding:0; }
+        .nav-main li { margin:0 0.5rem; cursor:pointer; }
+        .nav-main a { color:#fff; text-decoration:none; }
+        #theme-toggle { background:none; border:none; color:#fff; cursor:pointer; font-size:1.2rem; }
+        .page { display:none; padding:1rem; animation:fade 0.5s ease; }
+        .active { display:block; }
+        #mobile-toggle { display:none; cursor:pointer; }
+        #loading { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:#fff; z-index:1000; }
+        .stats { display:flex; gap:1rem; }
+        .services { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; }
+        .timeline { border-left:2px solid var(--primary); padding-left:1rem; }
+        .tabs { display:flex; gap:0.5rem; margin-bottom:1rem; }
+        .tabs button { padding:0.5rem 1rem; cursor:pointer; border:none; background:var(--secondary); color:#fff; }
+        .tab-content { display:none; }
+        .tab-active { display:block; }
+        .chat-container { display:flex; height:60vh; }
+        .chat-sidebar { width:25%; border-right:1px solid #ccc; overflow:auto; }
+        .chat-main { flex:1; display:flex; flex-direction:column; }
+        .chat-messages { flex:1; overflow:auto; padding:0.5rem; }
+        .chat-input { display:flex; }
+        .chat-input input { flex:1; padding:0.5rem; }
+        .chat-input button { padding:0.5rem; }
+        @media (max-width:768px){
+            .nav-main ul { display:none; position:absolute; top:3rem; left:0; right:0; background:var(--gradient); flex-direction:column; }
+            .nav-main ul.show { display:flex; }
+            #mobile-toggle { display:block; color:#fff; }
+            .services { grid-template-columns:1fr; }
+        }
+        @keyframes spin { from{transform:rotate(0);} to{transform:rotate(360deg);} }
+        @keyframes fade { from{opacity:0;} to{opacity:1;} }
+    </style>
 </head>
 <body>
-    <!-- აქ ჩასვით HTML კოდი (header, container, footer) -->
-    <!-- კოდი იწყება <header class="header"> დან -->
-    <!-- და მთავრდება </footer> -ით -->
-    
-    <!-- JavaScript ფაილი -->
-    <script src="js/script.js"></script>
+<div id="loading">იტვირთება...</div>
+<header>
+    <nav class="nav-main">
+        <div class="logo">Agro</div>
+        <div id="mobile-toggle">☰</div>
+        <ul id="nav-list">
+            <li data-page="home"><a href="#home">მთავარი</a></li>
+            <li data-page="platform"><a href="#platform">პლატფორმა</a></li>
+            <li data-page="blog"><a href="#blog">ბლოგი</a></li>
+            <li data-page="partners"><a href="#partners">პარტნიორები</a></li>
+            <li data-page="ai-chat"><a href="#ai-chat">AI ასისტენტი</a></li>
+            <li data-page="contact"><a href="#contact">კონტაქტი</a></li>
+            <li data-page="profile" class="user-link"><a href="#profile">შესვლა</a></li>
+        </ul>
+        <button id="theme-toggle">🌙</button>
+    </nav>
+</header>
+<main>
+    <section id="home" class="page active">
+        <h1>მთავარი</h1>
+        <div class="hero">Agro Logo</div>
+        <div class="stats">
+            <div><span class="count" data-count="120">0</span> + მომხმარებელი</div>
+            <div><span class="count" data-count="50">0</span> + პარტნიორი</div>
+            <div><span class="count" data-count="300">0</span> + პროექტი</div>
+        </div>
+        <div class="timeline">
+            <p>2020 - პლატფორმის დაბადება</p>
+            <p>2021 - პირველი ვერსია</p>
+            <p>2022 - განვითარება</p>
+        </div>
+        <div class="services">
+            <div>სერვისი 1</div>
+            <div>სერვისი 2</div>
+            <div>სერვისი 3</div>
+            <div>სერვისი 4</div>
+        </div>
+    </section>
+    <section id="platform" class="page">
+        <h1>პლატფორმა</h1>
+        <div class="tabs">
+            <button data-tab="overview">მიმოხილვა</button>
+            <button data-tab="building">აშენება</button>
+            <button data-tab="crop">დაგეგმვა</button>
+            <button data-tab="calendar">კალენდარი</button>
+        </div>
+        <div id="overview" class="tab-content tab-active">
+            <p>პლატფორმის აღწერა...</p>
+        </div>
+        <div id="building" class="tab-content">
+            <label>სიგრძე <input type="number" id="b-length"></label>
+            <label>სიგანე <input type="number" id="b-width"></label>
+            <label>მასალა
+                <select id="b-material">
+                    <option value="polycarbonate">პოლიკარბონატი</option>
+                    <option value="film">ფირი</option>
+                    <option value="glass">მინა</option>
+                </select>
+            </label>
+            <label>კლიმატი
+                <select id="b-climate">
+                    <option value="warm">თბილი</option>
+                    <option value="medium">საშუალო</option>
+                    <option value="cold">ცივი</option>
+                </select>
+            </label>
+            <button id="calc-build">გამოთვლა</button>
+            <button id="pdf-build">PDF</button>
+            <div id="build-result"></div>
+        </div>
+        <div id="crop" class="tab-content">
+            <select id="crop-select"></select>
+            <div id="crop-details"></div>
+        </div>
+        <div id="calendar" class="tab-content">
+            <select id="month-select"></select>
+            <ul id="task-list"></ul>
+        </div>
+    </section>
+    <section id="blog" class="page"><h1>ბლოგი</h1></section>
+    <section id="partners" class="page"><h1>პარტნიორები</h1></section>
+    <section id="ai-chat" class="page">
+        <h1>AI ასისტენტი</h1>
+        <div class="chat-container">
+            <div class="chat-sidebar" id="chat-history"></div>
+            <div class="chat-main">
+                <div class="chat-messages" id="chat-messages"></div>
+                <div class="chat-input">
+                    <input type="text" id="chat-input" placeholder="საფრთხე...">
+                    <button id="chat-send">გაგზავნა</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="page"><h1>კონტაქტი</h1></section>
+    <section id="profile" class="page">
+        <h1>პროფილი</h1>
+        <div id="login-form">
+            <input type="text" id="login-user" placeholder="მომხმარებელი">
+            <input type="password" id="login-pass" placeholder="პაროლი">
+            <button id="login-btn">შესვლა</button>
+            <button id="register-btn">რეგისტრაცია</button>
+        </div>
+        <div id="profile-info" style="display:none;">
+            <p id="profile-name"></p>
+            <button id="logout-btn">გამოსვლა</button>
+        </div>
+    </section>
+</main>
+<div id="notify" style="position:fixed;bottom:1rem;right:1rem;"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const pages = document.querySelectorAll('.page');
+function showPage(id){
+    pages.forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.getElementById('nav-list').addEventListener('click',e=>{
+    if(e.target.closest('li')){
+        const page=e.target.closest('li').dataset.page;
+        if(page==='ai-chat'||page==='profile'){
+            if(!UserManager.isLoggedIn()) {notify('გთხოვთ, შედით'); showPage('profile'); return;}
+        }
+        showPage(page);
+        document.getElementById('nav-list').classList.remove('show');
+    }
+});
+
+document.getElementById('mobile-toggle').addEventListener('click',()=>{
+    document.getElementById('nav-list').classList.toggle('show');
+});
+
+function toggleTheme(){
+    const html=document.documentElement;
+    html.dataset.theme = html.dataset.theme==='dark'?'light':'dark';
+    localStorage.setItem('theme', html.dataset.theme);
+}
+
+document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+function notify(msg){
+    const n=document.createElement('div');
+    n.textContent=msg;
+    n.style.background='var(--primary)';
+    n.style.color='#fff';
+    n.style.padding='0.5rem';
+    n.style.marginTop='0.5rem';
+    document.getElementById('notify').appendChild(n);
+    setTimeout(()=>n.remove(),2000);
+}
+
+class UserManager{
+    static load(){
+        this.users=JSON.parse(localStorage.getItem('users')||'[]');
+        this.current=localStorage.getItem('currentUser');
+    }
+    static save(){
+        localStorage.setItem('users', JSON.stringify(this.users));
+        localStorage.setItem('currentUser', this.current||'');
+    }
+    static register(u,p){
+        this.users.push({u,p});
+        this.current=u;
+        this.save();
+    }
+    static login(u,p){
+        const user=this.users.find(x=>x.u===u && x.p===p);
+        if(user){this.current=u; this.save(); return true;} return false;
+    }
+    static logout(){this.current=null; this.save();}
+    static isLoggedIn(){return !!this.current;}
+}
+
+UserManager.load();
+
+const loginBtn=document.getElementById('login-btn');
+const registerBtn=document.getElementById('register-btn');
+loginBtn.addEventListener('click',()=>{
+    const u=document.getElementById('login-user').value;
+    const p=document.getElementById('login-pass').value;
+    if(UserManager.login(u,p)){showProfile();}else{notify('შეცდომა');}
+});
+registerBtn.addEventListener('click',()=>{
+    const u=document.getElementById('login-user').value;
+    const p=document.getElementById('login-pass').value;
+    UserManager.register(u,p); showProfile();
+});
+
+document.getElementById('logout-btn').addEventListener('click',()=>{UserManager.logout();showLogin();});
+
+function showProfile(){
+    document.getElementById('login-form').style.display='none';
+    document.getElementById('profile-info').style.display='block';
+    document.getElementById('profile-name').textContent='მომხმარებელი: '+UserManager.current;
+    document.querySelector('.user-link a').textContent='პროფილი';
+}
+function showLogin(){
+    document.getElementById('login-form').style.display='block';
+    document.getElementById('profile-info').style.display='none';
+    document.querySelector('.user-link a').textContent='შესვლა';
+}
+if(UserManager.isLoggedIn()) showProfile();
+
+const materialPrices={polycarbonate:15,film:5,glass:25};
+const climateCoeff={warm:0.9,medium:1,cold:1.2};
+
+document.getElementById('calc-build').addEventListener('click',()=>{
+    const l=+document.getElementById('b-length').value;
+    const w=+document.getElementById('b-width').value;
+    const m=document.getElementById('b-material').value;
+    const c=document.getElementById('b-climate').value;
+    const area=l*w;
+    const cost=area*materialPrices[m]*climateCoeff[c];
+    document.getElementById('build-result').textContent='ღირებულება: '+cost.toFixed(2)+'₾';
+});
+
+document.getElementById('pdf-build').addEventListener('click',()=>{
+    const {jsPDF}=window.jspdf;
+    const doc=new jsPDF();
+    doc.text('სათბურის შეთავაზება',10,10);
+    doc.text(document.getElementById('build-result').textContent,10,20);
+    doc.save('quote.pdf');
+});
+
+const crops={
+    tomato:{name:'პამიდორი',days:90,yield:'4t/ha'},
+    cucumber:{name:'კიტრი',days:60,yield:'3t/ha'},
+    pepper:{name:'ბულგარული',days:80,yield:'2t/ha'}
+};
+const cropSelect=document.getElementById('crop-select');
+for(const k in crops){
+    const opt=document.createElement('option');opt.value=k;opt.textContent=crops[k].name;cropSelect.appendChild(opt);
+}
+cropSelect.addEventListener('change',()=>{
+    const c=crops[cropSelect.value];
+    document.getElementById('crop-details').textContent=`თვისები: ${c.days} დღე, მოსავალი: ${c.yield}`;
+});
+
+const calendarData={
+    1:['მიწის მზადება','თესვის დაგეგმვა'],
+    2:['სათესი სამუშაოები'],
+    3:['სარეველა კონტროლი'],
+    4:['მორწყვა'],
+    5:['განოყიერება'],
+    6:['მავნებლების კონტროლი'],
+    7:['მორწყვა'],
+    8:['მოსავლის აღება'],
+    9:['ნიადაგის განახლება'],
+    10:['ახალი ნარგავები'],
+    11:['სათბურის მომზადება'],
+    12:['პლანის შედგენა']
+};
+const monthSelect=document.getElementById('month-select');
+const months=['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'];
+months.forEach((m,i)=>{const opt=document.createElement('option');opt.value=i+1;opt.textContent=m;monthSelect.appendChild(opt);});
+monthSelect.addEventListener('change',()=>{
+    const tasks=calendarData[monthSelect.value]||[];
+    const list=document.getElementById('task-list');
+    list.innerHTML='';
+    tasks.forEach(t=>{const li=document.createElement('li');li.textContent=t;list.appendChild(li);});
+});
+
+const AIResponses={
+    default:'გამარჯობა, რით დაგეხმარო?',
+    weather:'დღეს ნალექია მოსალოდნელი',
+    price:'პომიდვრის ფასი 3₾-ია'
+};
+const history=document.getElementById('chat-history');
+const messages=document.getElementById('chat-messages');
+function addMessage(text,from){
+    const div=document.createElement('div');
+    div.textContent=(from==='ai'?'AI: ':'თქვენ: ')+text;
+    messages.appendChild(div);
+    messages.scrollTop=messages.scrollHeight;
+}
+
+document.getElementById('chat-send').addEventListener('click',()=>{
+    const input=document.getElementById('chat-input');
+    const msg=input.value.trim();
+    if(!msg) return;
+    addMessage(msg,'user');
+    input.value='';
+    const response=AIResponses.weather && msg.includes('ამინდი')?AIResponses.weather:AIResponses.default;
+    addMessage(response,'ai');
+    const h=document.createElement('div');h.textContent=msg;history.appendChild(h);
+});
+
+window.addEventListener('load',()=>{
+    const theme=localStorage.getItem('theme');
+    if(theme) document.documentElement.dataset.theme=theme;
+    setTimeout(()=>document.getElementById('loading').style.display='none',1500);
+    const counters=document.querySelectorAll('.count');
+    const io=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{if(e.isIntersecting){const c=e.target;const target=+c.dataset.count;let n=0;const int=setInterval(()=>{n++;c.textContent=n;if(n>=target)clearInterval(int);},30);io.unobserve(c);}});
+    });
+    counters.forEach(c=>io.observe(c));
+});
+</script>
 </body>
 </html>
