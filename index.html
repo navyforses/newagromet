@@ -3,22 +3,435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>აგრო-ორნამენტი - სათბურის ინტელექტუალური პლატფორმა</title>
-    
-    <!-- Google Fonts -->
+    <title>პერინატალური რეაბილიტაცია - ჩვილების რეაბილიტაციის სისტემა</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- CSS ფაილი -->
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- აქ ჩასვით HTML კოდი (header, container, footer) -->
-    <!-- კოდი იწყება <header class="header"> დან -->
-    <!-- და მთავრდება </footer> -ით -->
-    
-    <!-- JavaScript ფაილი -->
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M20 5L25 15H15L20 5Z" fill="#4F46E5"/>
+                    <circle cx="20" cy="25" r="10" fill="#818CF8"/>
+                </svg>
+                <h1>პერინატალური რეაბილიტაცია</h1>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-view="dashboard">მთავარი</button>
+                <button class="nav-btn" data-view="patients">პაციენტები</button>
+                <button class="nav-btn" data-view="add-patient">ახალი პაციენტი</button>
+                <button class="nav-btn" data-view="statistics">სტატისტიკა</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view active">
+                <h2>მთავარი პანელი</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #EEF2FF;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#4F46E5" stroke-width="2"/>
+                                <circle cx="9" cy="7" r="4" stroke="#4F46E5" stroke-width="2"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="#4F46E5" stroke-width="2"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="#4F46E5" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-label">სულ პაციენტები</p>
+                            <p class="stat-value" id="total-patients">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #F0FDF4;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#16A34A" stroke-width="2"/>
+                                <polyline points="22 4 12 14.01 9 11.01" stroke="#16A34A" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-label">აქტიური რეაბილიტაცია</p>
+                            <p class="stat-value" id="active-patients">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #FEF3C7;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="#D97706" stroke-width="2"/>
+                                <polyline points="12 6 12 12 16 14" stroke="#D97706" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-label">დაგეგმილი სესიები</p>
+                            <p class="stat-value" id="scheduled-sessions">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #DBEAFE;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#2563EB" stroke-width="2"/>
+                                <polyline points="14 2 14 8 20 8" stroke="#2563EB" stroke-width="2"/>
+                                <line x1="16" y1="13" x2="8" y2="13" stroke="#2563EB" stroke-width="2"/>
+                                <line x1="16" y1="17" x2="8" y2="17" stroke="#2563EB" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-label">შეფასებები</p>
+                            <p class="stat-value" id="total-assessments">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-section">
+                    <h3>ბოლო აქტივობა</h3>
+                    <div id="recent-activity" class="activity-list">
+                        <p class="empty-state">აქტივობა არ არის</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Patients List View -->
+            <section id="patients" class="view">
+                <div class="section-header">
+                    <h2>პაციენტების სია</h2>
+                    <div class="search-box">
+                        <input type="text" id="search-patients" placeholder="ძიება...">
+                    </div>
+                </div>
+                <div id="patients-list" class="patients-grid">
+                    <p class="empty-state">პაციენტები არ არიან დამატებული</p>
+                </div>
+            </section>
+
+            <!-- Add Patient View -->
+            <section id="add-patient" class="view">
+                <h2>ახალი პაციენტის დამატება</h2>
+                <form id="patient-form" class="patient-form">
+                    <div class="form-section">
+                        <h3>ძირითადი ინფორმაცია</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="patient-name">სახელი და გვარი *</label>
+                                <input type="text" id="patient-name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="patient-id">პაციენტის ID *</label>
+                                <input type="text" id="patient-id" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="birth-date">დაბადების თარიღი *</label>
+                                <input type="date" id="birth-date" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender">სქესი *</label>
+                                <select id="gender" required>
+                                    <option value="">აირჩიეთ</option>
+                                    <option value="male">მამრობითი</option>
+                                    <option value="female">მდედრობითი</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="weight">წონა (კგ) *</label>
+                                <input type="number" id="weight" step="0.1" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="height">სიმაღლე (სმ) *</label>
+                                <input type="number" id="height" step="0.1" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>კონტაქტური ინფორმაცია</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="parent-name">მშობლის სახელი *</label>
+                                <input type="text" id="parent-name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">ტელეფონი *</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="address">მისამართი</label>
+                                <input type="text" id="address">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="email">ელ. ფოსტა</label>
+                                <input type="email" id="email">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>სამედიცინო ინფორმაცია</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="asphyxia-severity">ასფიქსიის სიმძიმე *</label>
+                                <select id="asphyxia-severity" required>
+                                    <option value="">აირჩიეთ</option>
+                                    <option value="mild">მსუბუქი</option>
+                                    <option value="moderate">საშუალო</option>
+                                    <option value="severe">მძიმე</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="apgar-score">აპგარის ქულა (1 წუთი)</label>
+                                <input type="number" id="apgar-score" min="0" max="10">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="apgar-score-5">აპგარის ქულა (5 წუთი)</label>
+                                <input type="number" id="apgar-score-5" min="0" max="10">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="admission-date">მიღების თარიღი *</label>
+                                <input type="date" id="admission-date" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="diagnosis">დიაგნოზი *</label>
+                                <textarea id="diagnosis" rows="3" required></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="medical-history">ანამნეზი</label>
+                                <textarea id="medical-history" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>რეაბილიტაციის გეგმა</h3>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="rehab-goals">რეაბილიტაციის მიზნები</label>
+                                <textarea id="rehab-goals" rows="3" placeholder="მაგ: მოტორული უნარების გაუმჯობესება, შემეცნებითი ფუნქციების განვითარება..."></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="therapy-types">თერაპიის ტიპები</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" class="therapy-type" value="physical"> ფიზიოთერაპია</label>
+                                    <label><input type="checkbox" class="therapy-type" value="occupational"> ოკუპაციური თერაპია</label>
+                                    <label><input type="checkbox" class="therapy-type" value="speech"> ლოგოპედია</label>
+                                    <label><input type="checkbox" class="therapy-type" value="cognitive"> შემეცნებითი თერაპია</label>
+                                    <label><input type="checkbox" class="therapy-type" value="sensory"> სენსორული ინტეგრაცია</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">პაციენტის დამატება</button>
+                        <button type="reset" class="btn btn-secondary">გასუფთავება</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Statistics View -->
+            <section id="statistics" class="view">
+                <h2>სტატისტიკა და ანალიტიკა</h2>
+                <div class="stats-section">
+                    <div class="chart-container">
+                        <h3>პაციენტების განაწილება სიმძიმის მიხედვით</h3>
+                        <canvas id="severity-chart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>აქტიური რეაბილიტაციის პროგრესი</h3>
+                        <canvas id="progress-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Patient Detail Modal -->
+    <div id="patient-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-patient-name"></h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="info">ინფორმაცია</button>
+                    <button class="tab-btn" data-tab="assessment">შეფასება</button>
+                    <button class="tab-btn" data-tab="sessions">სესიები</button>
+                    <button class="tab-btn" data-tab="progress">პროგრესი</button>
+                </div>
+
+                <!-- Info Tab -->
+                <div id="info-tab" class="tab-content active">
+                    <div id="patient-info"></div>
+                </div>
+
+                <!-- Assessment Tab -->
+                <div id="assessment-tab" class="tab-content">
+                    <h3>ახალი შეფასება</h3>
+                    <form id="assessment-form">
+                        <div class="assessment-section">
+                            <h4>მოტორული უნარები</h4>
+                            <div class="form-group">
+                                <label>თავის კონტროლი</label>
+                                <select class="assessment-field" data-category="motor" data-skill="head-control">
+                                    <option value="0">არ აქვს</option>
+                                    <option value="1">ნაწილობრივ</option>
+                                    <option value="2">კარგი</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>კიდურების მოძრაობა</label>
+                                <select class="assessment-field" data-category="motor" data-skill="limb-movement">
+                                    <option value="0">შეზღუდული</option>
+                                    <option value="1">საშუალო</option>
+                                    <option value="2">კარგი</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>ტონუსი</label>
+                                <select class="assessment-field" data-category="motor" data-skill="tone">
+                                    <option value="0">ჰიპოტონია</option>
+                                    <option value="1">ნორმალური</option>
+                                    <option value="2">ჰიპერტონია</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="assessment-section">
+                            <h4>შემეცნებითი ფუნქციები</h4>
+                            <div class="form-group">
+                                <label>ვიზუალური კონტაქტი</label>
+                                <select class="assessment-field" data-category="cognitive" data-skill="visual-contact">
+                                    <option value="0">არ აქვს</option>
+                                    <option value="1">ნაწილობრივ</option>
+                                    <option value="2">კარგი</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>რეაქცია ხმაზე</label>
+                                <select class="assessment-field" data-category="cognitive" data-skill="sound-response">
+                                    <option value="0">არ რეაგირებს</option>
+                                    <option value="1">ნაწილობრივ</option>
+                                    <option value="2">კარგად რეაგირებს</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="assessment-section">
+                            <h4>კვების უნარი</h4>
+                            <div class="form-group">
+                                <label>წოვის რეფლექსი</label>
+                                <select class="assessment-field" data-category="feeding" data-skill="sucking">
+                                    <option value="0">არ აქვს</option>
+                                    <option value="1">სუსტი</option>
+                                    <option value="2">კარგი</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>ყლაპვის უნარი</label>
+                                <select class="assessment-field" data-category="feeding" data-skill="swallowing">
+                                    <option value="0">შეზღუდული</option>
+                                    <option value="1">საშუალო</option>
+                                    <option value="2">კარგი</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>შენიშვნები</label>
+                            <textarea id="assessment-notes" rows="3"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">შეფასების შენახვა</button>
+                    </form>
+
+                    <div class="assessments-history">
+                        <h3>შეფასებების ისტორია</h3>
+                        <div id="assessments-list"></div>
+                    </div>
+                </div>
+
+                <!-- Sessions Tab -->
+                <div id="sessions-tab" class="tab-content">
+                    <h3>თერაპიული სესიების დაგეგმვა</h3>
+                    <form id="session-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>თერაპიის ტიპი</label>
+                                <select id="session-type">
+                                    <option value="physical">ფიზიოთერაპია</option>
+                                    <option value="occupational">ოკუპაციური თერაპია</option>
+                                    <option value="speech">ლოგოპედია</option>
+                                    <option value="cognitive">შემეცნებითი თერაპია</option>
+                                    <option value="sensory">სენსორული ინტეგრაცია</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>თარიღი</label>
+                                <input type="date" id="session-date">
+                            </div>
+                            <div class="form-group">
+                                <label>დრო</label>
+                                <input type="time" id="session-time">
+                            </div>
+                            <div class="form-group">
+                                <label>ხანგრძლივობა (წუთი)</label>
+                                <input type="number" id="session-duration" value="30">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>შენიშვნები</label>
+                                <textarea id="session-notes" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">სესიის დაგეგმვა</button>
+                    </form>
+
+                    <div class="sessions-list">
+                        <h3>დაგეგმილი და ჩატარებული სესიები</h3>
+                        <div id="sessions-list-container"></div>
+                    </div>
+                </div>
+
+                <!-- Progress Tab -->
+                <div id="progress-tab" class="tab-content">
+                    <h3>რეაბილიტაციის პროგრესი</h3>
+                    <div id="progress-charts"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 პერინატალური რეაბილიტაციის სისტემა | ჩვილების ჯანმრთელობისთვის</p>
+        </div>
+    </footer>
+
     <script src="js/script.js"></script>
 </body>
 </html>
